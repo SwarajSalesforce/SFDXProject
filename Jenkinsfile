@@ -26,11 +26,15 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
 		bat "sfdx force:auth:logout -u ${PROD_USERNAME} -p" 
-					bat "sfdx force:auth:logout -u ${DEV_USERNAME} -p" 
-					bat "sfdx force:auth:logout -u ${ITEST_USERNAME} -p"
+		bat "sfdx force:auth:logout -u ${DEV_USERNAME} -p" 
+		bat "sfdx force:auth:logout -u ${ITEST_USERNAME} -p"
             if (isUnix()) {
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }else{
+				 rc1 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
+				 rc2 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
+				 rc3 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
+				
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }
             if (rc != 0) { error 'hub org authorization failed' }
