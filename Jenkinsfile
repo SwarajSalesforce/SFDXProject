@@ -42,7 +42,7 @@ node {
 				rmsg = sh returnStdout: true, script: "${toolbelt} force:auth:logout --targetusername %USERNAME% -p"
 			}else		
 				 
-			   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG}"
+			   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy -u ${HUB_ORG} -p force-app/."
 			}
 			  
             printf rmsg
