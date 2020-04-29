@@ -29,9 +29,6 @@ node {
 
                 rc = sh returnStatus: true, script: "${toolbelt} force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }else{
-				 rc1 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
-				 rc2 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
-				 rc3 = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:logout -u ${PROD_USERNAME} -p"
 				
                  rc = bat returnStatus: true, script: "\"${toolbelt}\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }
